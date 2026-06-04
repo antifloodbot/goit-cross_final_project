@@ -4,7 +4,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { colors } from '@/constants/colors';
 import ContactScreen from '@/screens/ContactScreen';
 import HelpScreen from '@/screens/HelpScreen';
-import SettingsScreen from '@/screens/SettingsScreen';
 
 import { SCREENS } from './screens';
 import StackNavigator from './StackNavigator';
@@ -55,9 +54,16 @@ export default function DrawerNavigator() {
           component={StackNavigator}
           options={getMainDrawerOptions}
         />
-        <Drawer.Screen name={SCREENS.SETTINGS} component={SettingsScreen} />
-        <Drawer.Screen name={SCREENS.HELP} component={HelpScreen} />
-        <Drawer.Screen name={SCREENS.CONTACT} component={ContactScreen} />
+        <Drawer.Screen
+          name={SCREENS.HELP}
+          component={HelpScreen}
+          options={{ headerShown: false }}
+        />
+        <Drawer.Screen
+          name={SCREENS.CONTACT}
+          component={ContactScreen}
+          options={{ headerShown: false }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );

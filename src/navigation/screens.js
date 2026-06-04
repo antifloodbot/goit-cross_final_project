@@ -3,8 +3,7 @@ export const SCREENS = {
   PRODUCT_DETAILS: 'ProductDetails',
   CART: 'Cart',
   ORDERS: 'Orders',
-  PROFILE: 'Profile',
-  SETTINGS: 'Settings',
+  REVIEWS: 'Reviews',
   HELP: 'Help',
-  CONTACT: 'Contact',
+  CONTACT: 'Contacts',
 };

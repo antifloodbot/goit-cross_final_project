@@ -23,9 +23,13 @@ The project demonstrates:
 - Category filtering (All, Latte, Cappuccino, Espresso)
 - Product Details screen
 - Drawer navigation
-- Bottom tab navigation
+- Bottom tab navigation with Home, Orders, Cart, and Reviews
 - Size selector (S / M / L)
 - Add to Cart button UI
+- Reviews loaded from an external REST API
+- Orders screen with completed order history
+- Cart badge with total quantity
+- Cart and orders sessionStorage persistence
 
 ## Data Flow
 
@@ -48,13 +52,12 @@ Drawer Navigator
     ├── Product Details
     ├── Orders
     ├── Cart
-    └── Profile
+    └── Reviews
 ```
 
 Additional Drawer Screens:
-- Settings
 - Help
-- Contact
+- Contacts
 
 ## Run Instructions
 
@@ -67,27 +70,86 @@ npm run web
 
 ### Home Screen
 ![Home Screen](assets/homescreen.png)
+Displays the coffee menu loaded from the external API, search input, category filters, product cards, and Add buttons.
 
-### Product Details Screen
+### Product Details
 ![Product Details](assets/product-details.png)
+Shows selected coffee details, size selection, Add to Cart action, and animated confirmation behavior.
+
+### Cart
+![Cart](assets/cart.png)
+Shows cart items, quantity controls, item subtotals, total price, cart badge behavior, and the Place Order flow.
+
+### Empty Cart
+![Empty Cart](assets/empty-cart.png)
+Shows the empty cart state after all items are removed or after an order confirmation is cleared.
+
+### Orders
+![Orders](assets/orders.png)
+Displays completed orders with order numbers, item summaries, item subtotals, and total order amount.
+
+### Empty Orders
+![Empty Orders](assets/empty-orders.png)
+Shows the empty orders state when no orders have been placed yet.
+
+### Reviews
+![Reviews](assets/reviews.png)
+Displays customer reviews loaded from the external Reviews API using reusable ReviewCard components.
+
+### Help Center
+![Help Center](assets/help.png)
+Shows FAQ cards with guidance for ordering, cart usage, reviews, and theme information.
+
+### Contacts
+![Contacts](assets/contacts.png)
+Shows styled support information cards with email, phone, location, and working hours.
 
 ### Drawer Navigation
 ![Drawer Navigation](assets/drawer.png)
+Shows the Drawer navigation with secondary sections such as Help and Contacts.
 
-### Context API - Light Theme
-![Light Theme](assets/light-theme.png)
+## Final Project Improvements
 
-The application uses ThemeContext and useContext to manage and switch between light and dark themes.
+- Added a new Reviews screen.
+- Reviews are loaded from external REST API:
+  https://jsonplaceholder.typicode.com/comments
+- Reviews are displayed with reusable ReviewCard component.
+- Reviews screen supports loading and error states.
+- Reviews screen is available from bottom tab navigation.
+- Help screen was improved with FAQ cards and clearer support guidance.
+- Contacts screen was improved with styled support information cards.
 
-### Context API - Dark Theme
-![Dark Theme](assets/dark-theme.png)
+### Cart Badge & Session Persistence
 
-The application uses ThemeContext and useContext to manage and switch between light and dark themes.
+- A live cart badge was added to the Cart tab.
+- The badge displays the total quantity of products currently stored in the Redux cart.
+- The badge updates immediately when products are added, removed, or quantities change.
+- Cart data is persisted using browser sessionStorage.
+- Cart contents are restored automatically after page refresh during the same browser session.
+- sessionStorage access is safely guarded to avoid issues on Expo native platforms.
 
-### Redux Cart
-![Redux Cart](assets/cart.png)
+## Application Analysis
 
-The application uses Redux Toolkit for cart state management. Products can be added, removed, and their quantity can be updated.
+Current strengths:
+- Coffee menu API integration
+- Search and category filtering
+- Product Details flow
+- Redux cart management
+- Context API theme infrastructure
+- Drawer, Stack, and Tab navigation
+
+Improvement areas:
+- More product-related content
+- More informative secondary screens
+- Better user trust through reviews/social proof
+
+## Final Project Decisions
+
+- Context API is used for theme because it is lightweight global UI state.
+- Redux Toolkit is used for cart because cart items require add, remove, and quantity update operations.
+- Reviews API was added as a lightweight external data feature to improve user trust and content depth.
+- Help and Contacts screens were expanded to replace placeholder content and improve the final project UX.
+- Redux Toolkit manages cart state because multiple screens need access to cart data, badge counts, and quantity updates.
 
 ## Performance Optimization
 
@@ -116,15 +178,8 @@ The application uses Redux Toolkit for cart state management. Products can be ad
 
 ## Performance Evidence
 
-### Product Details Confirmation Animation
-![Product Details confirmation animation](assets/performance-animation.png)
-
-The add-to-cart confirmation message is animated using LayoutAnimation.
-
-### Dependency Cleanup Result
-![Dependency cleanup result](assets/dependency-cleanup.png)
-
-Direct dependencies were reduced from 29 to 18 after removing unused Expo packages.
+- Product Details uses LayoutAnimation for the add-to-cart confirmation message.
+- Direct dependencies were reduced from 29 to 18 after removing unused Expo packages.
 
 ## State Management
 
@@ -135,7 +190,7 @@ Implemented ThemeContext using React Context API.
 Features:
 - ThemeProvider wraps the application.
 - Theme state is shared through useContext.
-- Toggle Theme button is available on the Settings screen.
+- ThemeContext remains available as app-level theme infrastructure.
 - Light and Dark themes are supported.
 - Theme state is consumed by multiple components.
 
@@ -149,7 +204,10 @@ Features:
   - addItem
   - removeItem
   - updateQuantity
+  - clearCart
+- ordersSlice created for completed orders and next order numbers.
 - useSelector is used to read cart data.
 - useDispatch is used to update cart state.
 - Products can be added from Home and Product Details screens.
 - Cart screen supports quantity updates and item removal.
+- Cart and order state are persisted with guarded browser sessionStorage.

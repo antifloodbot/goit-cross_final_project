@@ -12,7 +12,7 @@ import {
   UIManager,
   View,
 } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { colors } from '@/constants/colors';
 import { SCREENS } from '@/navigation/screens';
@@ -24,7 +24,7 @@ const tabs = [
   { label: 'Home', icon: 'home-outline' },
   { label: 'Orders', icon: 'receipt-outline' },
   { label: 'Cart', icon: 'cart-outline' },
-  { label: 'Profile', icon: 'person-outline' },
+  { label: 'Reviews', icon: 'chatbubble-outline' },
 ];
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -40,6 +40,9 @@ export default function ProductDetailsScreen({ route, navigation }) {
   const [selectedSize, setSelectedSize] = useState('S');
   const [addedMessage, setAddedMessage] = useState('');
   const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart);
+  // Cart badge total quantity sums all quantities across cart items.
+  const cartQuantity = cartItems.reduce((total, item) => total + (item.quantity ?? 0), 0);
   // route.params carries the product data sent from Home when a card is pressed.
   const product = route?.params;
 
@@ -123,6 +126,7 @@ export default function ProductDetailsScreen({ route, navigation }) {
 
       <StaticBottomTabs
         navigation={navigation}
+        cartQuantity={cartQuantity}
         onTabPress={() => {
           animateAddedMessageLayout();
           setAddedMessage('');
@@ -140,7 +144,7 @@ function BackButton({ onPress }) {
   );
 }
 
-function StaticBottomTabs({ navigation, onTabPress }) {
+function StaticBottomTabs({ navigation, cartQuantity, onTabPress }) {
   const handleTabPress = (screenName) => {
     onTabPress();
     navigation.navigate(MAIN_TABS_ROUTE, {
@@ -161,11 +165,22 @@ function StaticBottomTabs({ navigation, onTabPress }) {
             onPress={() => handleTabPress(SCREENS[tab.label.toUpperCase()])}
             activeOpacity={0.8}
           >
-            <Ionicons name={tab.icon} size={24} color={tabColor} />
+            <View>
+              <Ionicons name={tab.icon} size={24} color={tabColor} />
+              {tab.label === 'Cart' && cartQuantity > 0 ? <CartBadge quantity={cartQuantity} /> : null}
+            </View>
             <Text style={[styles.tabLabel, isActive && styles.activeTabLabel]}>{tab.label}</Text>
           </TouchableOpacity>
         );
       })}
+    </View>
+  );
+}
+
+function CartBadge({ quantity }) {
+  return (
+    <View style={styles.badge}>
+      <Text style={styles.badgeText}>{quantity}</Text>
     </View>
   );
 }
@@ -309,5 +324,22 @@ const styles = StyleSheet.create({
   },
   activeTabLabel: {
     color: colors.primary,
+  },
+  badge: {
+    position: 'absolute',
+    top: -6,
+    right: -10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: colors.primary,
+    minWidth: 18,
+    height: 18,
+    paddingHorizontal: 5,
+  },
+  badgeText: {
+    color: colors.background,
+    fontSize: 11,
+    fontWeight: '700',
   },
 });

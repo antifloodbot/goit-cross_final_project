@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [];
+import { loadCartFromStorage } from './cartStorage';
+
+const initialState = loadCartFromStorage();
 
 const findCartItemIndex = (cartItems, productId, size) =>
   cartItems.findIndex((item) => item.id === productId && item.size === size);
@@ -45,9 +47,10 @@ const cartSlice = createSlice({
 
       state[existingItemIndex].quantity = quantity;
     },
+    clearCart: () => [],
   },
 });
 
-export const { addItem, removeItem, updateQuantity } = cartSlice.actions;
+export const { addItem, clearCart, removeItem, updateQuantity } = cartSlice.actions;
 
 export default cartSlice.reducer;

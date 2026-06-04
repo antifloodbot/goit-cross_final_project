@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "coffeego",
-    "slug": "coffeego",
+    "name": "GOIT Cross Final Project",
+    "slug": "goit-cross-final-project",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "coffeego",
+    "scheme": "goit-cross-final-project",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"

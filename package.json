@@ -1,7 +1,11 @@
 {
-  "name": "coffeego",
+  "name": "goit-cross-final-project",
   "main": "index.js",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antifloodbot/goit-cross_final_project.git"
+  },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
     "@react-navigation/bottom-tabs": "^7.16.2",
