@@ -70,42 +70,52 @@ npm run web
 
 ### Home Screen
 ![Home Screen](assets/homescreen.png)
+
 Displays the coffee menu loaded from the external API, search input, category filters, product cards, and Add buttons.
 
 ### Product Details
 ![Product Details](assets/product-details.png)
+
 Shows selected coffee details, size selection, Add to Cart action, and animated confirmation behavior.
 
 ### Cart
 ![Cart](assets/cart.png)
+
 Shows cart items, quantity controls, item subtotals, total price, cart badge behavior, and the Place Order flow.
 
 ### Empty Cart
 ![Empty Cart](assets/empty-cart.png)
+
 Shows the empty cart state after all items are removed or after an order confirmation is cleared.
 
 ### Orders
 ![Orders](assets/orders.png)
+
 Displays completed orders with order numbers, item summaries, item subtotals, and total order amount.
 
 ### Empty Orders
 ![Empty Orders](assets/empty-orders.png)
+
 Shows the empty orders state when no orders have been placed yet.
 
 ### Reviews
 ![Reviews](assets/reviews.png)
+
 Displays customer reviews loaded from the external Reviews API using reusable ReviewCard components.
 
 ### Help Center
 ![Help Center](assets/help.png)
+
 Shows FAQ cards with guidance for ordering, cart usage, reviews, and theme information.
 
 ### Contacts
 ![Contacts](assets/contacts.png)
+
 Shows styled support information cards with email, phone, location, and working hours.
 
 ### Drawer Navigation
 ![Drawer Navigation](assets/drawer.png)
+
 Shows the Drawer navigation with secondary sections such as Help and Contacts.
 
 ## Final Project Improvements
